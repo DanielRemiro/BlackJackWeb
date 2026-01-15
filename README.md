@@ -6,9 +6,6 @@ Un simulador de Blackjack moderno, interactivo y totalmente animado construido c
 ![React](https://img.shields.io/badge/React-18-blue)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-Animation-purple)
 
-## 📸 Demo
-
-> *(Aquí puedes poner una captura de pantalla de tu juego funcionando. Guarda una imagen en tu carpeta pública y enlázala aquí, por ejemplo: `![Screenshot](./public/screenshot.png)`)*
 
 ## ✨ Características Principales
 

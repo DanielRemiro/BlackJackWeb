@@ -1,0 +1,313 @@
+/* =========================================
+   1. CONFIGURACIÓN GENERAL Y TAPETE
+   ========================================= */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.game-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  /* Degradado radial para efecto de mesa de casino */
+  background: radial-gradient(circle at center, #35a065 0%, #1e5c41 100%);
+  color: white;
+  min-height: 100vh;
+  padding: 20px;
+  overflow: hidden; /* Evita scroll cuando las cartas vuelan */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin: 10px 0 30px 0;
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+/* =========================================
+   2. HUD DE ECONOMÍA (NUEVO)
+   ========================================= */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+  z-index: 10;
+}
+
+.chip-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 50px; /* Bordes redondos */
+  border: 2px solid #FFD700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.chip-box strong {
+  color: #FFD700;
+  font-size: 1.3rem;
+}
+
+.chip-box.dealer {
+  border-color: #ff6b6b;
+}
+
+.chip-box.dealer strong {
+  color: #ff6b6b;
+}
+
+/* =========================================
+   3. MESA Y CARTAS
+   ========================================= */
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  gap: 10px;
+  perspective: 1000px; /* Necesario para el efecto 3D */
+}
+
+.hand-area {
+  min-height: 160px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hand-area h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  text-shadow: 1px 1px 2px black;
+}
+
+.cards-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  padding: 0 20px;
+}
+
+/* Estilo Individual de Carta */
+.card {
+  background: white;
+  color: #1a1a1a;
+  width: 80px;
+  height: 120px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  box-shadow: -2px 2px 8px rgba(0,0,0,0.4);
+  border: 4px solid white;
+  user-select: none;
+  position: relative;
+  backface-visibility: hidden; /* Importante para el flip */
+}
+
+/* Superposición de cartas (efecto abanico) */
+.cards-row > div {
+  margin-left: -35px;
+}
+.cards-row > div:first-child {
+  margin-left: 0;
+}
+
+.card.red { color: #D40000; }
+
+/* Carta oculta (Dorso) */
+.card.hidden {
+  background-color: #B22222;
+  color: transparent;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0,0,0,0.1) 10px,
+    rgba(0,0,0,0.1) 20px
+  ),
+  radial-gradient(circle, #B22222, #800000);
+  border: 2px solid #fff;
+}
+.card.hidden::after {
+  content: '?';
+  color: rgba(255,255,255,0.2);
+  font-size: 40px;
+}
+
+/* =========================================
+   4. MAZO DECORATIVO (A UN LADO)
+   ========================================= */
+.deck-container {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%) rotate(-5deg);
+  width: 90px;
+  height: 130px;
+  background: repeating-linear-gradient(
+    45deg, #B22222, #B22222 5px, #8B0000 5px, #8B0000 10px
+  );
+  border-radius: 8px;
+  border: 2px solid white;
+  box-shadow: 
+    1px 1px 0 #ddd, 2px 2px 0 #8B0000, 
+    3px 3px 0 #ddd, 4px 4px 0 #8B0000, 
+    5px 5px 0 #ddd, 6px 6px 0 #8B0000,
+    10px 10px 15px rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+/* Ocultar mazo en móviles pequeños si molesta */
+@media (max-width: 600px) {
+  .deck-container { display: none; }
+}
+
+/* =========================================
+   5. CONTROLES Y BOTONES
+   ========================================= */
+.controls {
+  margin-top: 10px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+button:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-start, .btn-restart {
+  background-color: #FFD700;
+  color: #333;
+}
+.btn-start:hover, .btn-restart:hover { background-color: #FFC107; }
+
+button:not(.btn-start):not(.btn-restart) {
+  background-color: white;
+  color: #333;
+}
+button:hover:not(.btn-start):not(.btn-restart) { background-color: #f0f0f0; }
+
+/* =========================================
+   6. PANEL DE APUESTAS (BettingControls)
+   ========================================= */
+.betting-controls {
+  background: rgba(0,0,0,0.4);
+  padding: 30px 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.betting-controls h3 { margin: 0; font-size: 1.5rem; }
+
+.bet-adjuster {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bet-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #FFD700;
+  min-width: 140px;
+  text-align: center;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+.info-text { color: #ccc; font-size: 0.9rem; margin-top: -10px; }
+
+/* =========================================
+   7. RESULTADOS Y GAME OVER
+   ========================================= */
+.result-area {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 30px;
+  border-radius: 10px;
+  border: 1px solid #FFD700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(5px);
+  position: absolute; /* Flotante sobre la mesa */
+  z-index: 50;
+  bottom: 20%;
+}
+
+.result-area h3 { margin: 0; font-size: 1.3rem; color: #fff; }
+
+hr {
+  width: 60%;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+  margin: 10px 0;
+}
+
+/* Pantalla de Game Over Global */
+.game-over-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.game-over-modal {
+  background: radial-gradient(circle, #2E8B57, #1e5c41);
+  padding: 50px;
+  border-radius: 20px;
+  border: 4px solid #FFD700;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+  max-width: 90%;
+}
+
+.game-over-modal h2 {
+  font-size: 3rem;
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+}
+.game-over-modal p { font-size: 1.5rem; margin-bottom: 30px; }

@@ -6,6 +6,9 @@ Un simulador de Blackjack moderno, interactivo y totalmente animado construido c
 ![React](https://img.shields.io/badge/React-18-blue)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-Animation-purple)
 
+## App Web
+
+https://blackjack-remiro.vercel.app/
 
 ## ✨ Características Principales
 

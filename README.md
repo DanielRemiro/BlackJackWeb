@@ -50,3 +50,5 @@ src/
 ├── Blackjack.jsx          # Controlador principal (Game Loop y Estados)
 ├── App.css                # Estilos globales y del tablero
 └── index.js               # Punto de entrada
+
+Diseñado usando Gemini
